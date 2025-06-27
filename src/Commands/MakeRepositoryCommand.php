@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use JoeSu\LaravelScaffold\Stubs\StubManager;
 
 class MakeRepositoryCommand extends Command
 {
@@ -104,7 +105,7 @@ class MakeRepositoryCommand extends Command
             }
         }
 
-        $stub = $this->getModelStub($name, $model);
+        $stub = StubManager::generateModel($name, $model);
         File::put($modelPath, $stub);
 
         $this->info("✅ Created: app/Models/{$model}.php");
@@ -141,7 +142,7 @@ class MakeRepositoryCommand extends Command
                 }
             }
 
-            $stub = $this->getRequestStub($name, $type);
+            $stub = StubManager::generateRequest($name, $type);
             File::put($requestPath, $stub);
 
             $this->info("✅ Created: app/Http/Requests/{$requestName}.php");
@@ -158,7 +159,7 @@ class MakeRepositoryCommand extends Command
             }
         }
 
-        $stub = $this->getRepositoryInterfaceStub($name);
+        $stub = StubManager::generateRepositoryInterface($name);
         File::put($interfacePath, $stub);
 
         $this->info("✅ Created: app/Contracts/{$name}RepositoryInterface.php");
@@ -174,7 +175,7 @@ class MakeRepositoryCommand extends Command
             }
         }
 
-        $stub = $this->getRepositoryClassStub($name, $model);
+        $stub = StubManager::generateRepositoryClass($name, $model);
         File::put($classPath, $stub);
 
         $this->info("✅ Created: app/Repositories/{$name}Repository.php");
@@ -190,7 +191,7 @@ class MakeRepositoryCommand extends Command
             }
         }
 
-        $stub = $this->getServiceInterfaceStub($name);
+        $stub = StubManager::generateServiceInterface($name);
         File::put($interfacePath, $stub);
 
         $this->info("✅ Created: app/Contracts/{$name}ServiceInterface.php");
@@ -206,7 +207,7 @@ class MakeRepositoryCommand extends Command
             }
         }
 
-        $stub = $this->getServiceClassStub($name);
+        $stub = StubManager::generateServiceClass($name);
         File::put($classPath, $stub);
 
         $this->info("✅ Created: app/Services/{$name}Service.php");
@@ -222,267 +223,15 @@ class MakeRepositoryCommand extends Command
             }
         }
 
-        $stub = $this->getControllerStub($name);
+        $stub = StubManager::generateController($name);
         File::put($controllerPath, $stub);
 
         $this->info("✅ Created: app/Http/Controllers/{$name}Controller.php");
     }
 
-    protected function getModelStub($name, $model)
-    {
-        $tableName = Str::plural(Str::snake($name));
-
-        return "<?php
-
-declare(strict_types=1);
-
-namespace App\\Models;
-
-use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;
-use Illuminate\\Database\\Eloquent\\Model;
-use Illuminate\\Database\\Eloquent\\Relations\\HasMany;
-use Illuminate\\Database\\Eloquent\\Relations\\BelongsTo;
-
-class {$model} extends Model
-{
-    use HasFactory;
-
-    protected \$fillable = [
-        // Add fillable fields here
-        // Examples:
-        // 'name',
-        // 'email',
-        // 'status',
-    ];
-
-    protected \$casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        // Add other type casts here
-        // Examples:
-        // 'is_active' => 'boolean',
-        // 'settings' => 'array',
-    ];
-
-    // Define relationship methods here
-    // Examples:
-    // public function posts(): HasMany
-    // {
-    //     return \$this->hasMany(Post::class);
-    // }
-}
-";
-    }
-
-    protected function getRequestStub($name, $type)
-    {
-        $requestName = "{$type}{$name}Request";
-        $rules = '';
-        if ($type === 'Index') {
-            $rules = "        return [\n            'per_page' => ['integer', 'min:1', 'max:100'],\n            'order_by' => ['string'],\n            'order_direction' => ['in:asc,desc'],\n            'with' => ['array'],\n            'columns' => ['array'],\n            'filters' => ['array'],\n        ];";
-        } elseif ($type === 'Show') {
-            $rules = "        return [\n            'id' => ['required', 'integer', 'min:1'],\n            'columns' => ['array'],\n            'with' => ['array'],\n        ];";
-        } else {
-            $rules = "        return [];";
-        }
-
-        return "<?php\n\ndeclare(strict_types=1);\n\nnamespace App\\Http\\Requests;\n\nuse Illuminate\\Foundation\\Http\\FormRequest;\n\nclass {$requestName} extends FormRequest\n{\n    /**\n     * Determine if the user is authorized to make this request.\n     */\n    public function authorize(): bool\n    {\n        return true;\n    }\n\n    /**\n     * Get the validation rules that apply to the request.\n     */\n    public function rules(): array\n    {\n{$rules}\n    }\n}\n";
-    }
-
     protected function getTableName($name)
     {
         return Str::plural(Str::snake($name));
-    }
-
-    protected function getRepositoryInterfaceStub($name)
-    {
-        return "<?php
-
-declare(strict_types=1);
-
-namespace App\\Contracts;
-
-use JoeSu\\LaravelScaffold\\BaseRepositoryInterface;
-
-interface {$name}RepositoryInterface extends BaseRepositoryInterface
-{
-    // Add custom methods here
-}
-";
-    }
-
-    protected function getRepositoryClassStub($name, $model)
-    {
-        return "<?php
-
-declare(strict_types=1);
-
-namespace App\\Repositories;
-
-use App\\Contracts\\{$name}RepositoryInterface;
-use App\\Models\\{$model};
-use JoeSu\\LaravelScaffold\\BaseRepository;
-
-class {$name}Repository extends BaseRepository implements {$name}RepositoryInterface
-{
-    public function __construct({$model} \$model)
-    {
-        parent::__construct(\$model);
-    }
-
-    // Add custom methods here
-}
-";
-    }
-
-    protected function getServiceInterfaceStub($name)
-    {
-        return "<?php
-
-declare(strict_types=1);
-
-namespace App\\Contracts;
-
-use JoeSu\\LaravelScaffold\\BaseServiceInterface;
-
-interface {$name}ServiceInterface extends BaseServiceInterface
-{
-    // Add custom methods here
-}
-";
-    }
-
-    protected function getServiceClassStub($name)
-    {
-        return "<?php
-
-declare(strict_types=1);
-
-namespace App\\Services;
-
-use App\\Contracts\\{$name}ServiceInterface;
-use App\\Contracts\\{$name}RepositoryInterface;
-use JoeSu\\LaravelScaffold\\BaseService;
-
-class {$name}Service extends BaseService implements {$name}ServiceInterface
-{
-    public function __construct({$name}RepositoryInterface \$repository)
-    {
-        parent::__construct(\$repository);
-    }
-
-    // Add business logic methods here
-}
-";
-    }
-
-    protected function getControllerStub($name)
-    {
-        $lowerName = Str::lower($name);
-        $pluralName = Str::plural($lowerName);
-
-        $stub = <<<'PHP'
-<?php
-
-declare(strict_types=1);
-
-namespace App\Http\Controllers;
-
-use App\Contracts\{name}ServiceInterface;
-use App\Http\Requests\Store{name}Request;
-use App\Http\Requests\Update{name}Request;
-use App\Http\Requests\Index{name}Request;
-use App\Http\Requests\Show{name}Request;
-use Illuminate\Http\Request;
-
-class {name}Controller extends Controller
-{
-    protected ${lowerName}Service;
-
-    public function __construct({name}ServiceInterface ${lowerName}Service)
-    {
-        $this->{lowerName}Service = ${lowerName}Service;
-    }
-
-    /**
-     * Display all {name}s (supports pagination, sorting, relationships, filtering)
-     */
-    public function index(Index{name}Request $request)
-    {
-        $perPage = $request->get('per_page', 0);
-        $orderBy = $request->get('order_by');
-        $orderDirection = $request->get('order_direction', 'asc');
-        $relationships = $request->get('with', []);
-        $columns = $request->get('columns', ['*']);
-        $filters = $request->get('filters', []);
-
-        ${pluralName} = $this->{lowerName}Service->index(
-            $perPage,
-            $orderBy,
-            $orderDirection,
-            $relationships,
-            $columns,
-            $filters
-        );
-
-        return response()->json(${pluralName});
-    }
-
-    /**
-     * Display specific {name}
-     */
-    public function show(Show{name}Request $request, $id)
-    {
-        try {
-            $columns = $request->get('columns', ['*']);
-            $relationships = $request->get('with', []);
-            ${lowerName} = $this->{lowerName}Service->find(
-                $id, $columns, $relationships);
-            return response()->json(${lowerName});
-        } catch (\Exception $e) {
-            return response()->json(['message' => '{name} not found'], 404);
-        }
-    }
-
-    /**
-     * Create new {name}
-     */
-    public function store(Store{name}Request $request)
-    {
-        ${lowerName} = $this->{lowerName}Service->create(
-            $request->validated());
-        return response()->json(${lowerName}, 201);
-    }
-
-    /**
-     * Update {name}
-     */
-    public function update(Update{name}Request $request, $id)
-    {
-        ${lowerName} = $this->{lowerName}Service->update(
-            $id, $request->validated());
-        return response()->json(${lowerName});
-    }
-
-    /**
-     * Delete {name}
-     */
-    public function destroy($id)
-    {
-        $this->{lowerName}Service->delete($id);
-        return response()->json(['message' => '{name} deleted successfully']);
-    }
-}
-PHP;
-        return str_replace([
-            '{name}',
-            '{lowerName}',
-            '{pluralName}'
-        ], [
-            $name,
-            $lowerName,
-            $pluralName
-        ], $stub);
     }
 
     protected function createApiRoutes($name, $force)
