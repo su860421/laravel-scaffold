@@ -1,27 +1,15 @@
 <?php
 
-namespace JoeSu\LaravelScaffold\Tests;
+namespace Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
-use JoeSu\LaravelScaffold\Providers\LaravelScaffoldServiceProvider;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-abstract class TestCase extends Orchestra
+abstract class TestCase extends OrchestraTestCase
 {
     protected function getPackageProviders($app)
     {
         return [
-            LaravelScaffoldServiceProvider::class,
+            \JoeSu\LaravelScaffold\Providers\LaravelScaffoldServiceProvider::class,
         ];
-    }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        // Set up test environment
-        $app['config']->set('database.default', 'testing');
-        $app['config']->set('database.connections.testing', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
     }
 }

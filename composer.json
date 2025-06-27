@@ -3,6 +3,7 @@
     "description": "A powerful Laravel package that provides a complete implementation of Repository and Service patterns for rapid API development.",
     "type": "library",
     "license": "MIT",
+    "version": "1.0.0",
     "keywords": [
         "laravel",
         "api",
@@ -31,7 +32,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "JoeSu\\LaravelScaffold\\Tests\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "extra": {

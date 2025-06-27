@@ -93,7 +93,7 @@ composer require laravel-scaffold/laravel-scaffold
 ### 1. Create Complete CRUD Architecture
 
 ```bash
-php artisan make:scaffold User
+php artisan make:repository User
 ```
 
 This will automatically generate:
@@ -111,13 +111,13 @@ This will automatically generate:
 
 ```bash
 # Only create Repository and Service
-php artisan make:scaffold User --repository --service
+php artisan make:repository User --repository --service
 
 # Create Model and Migration
-php artisan make:scaffold User --model --migration
+php artisan make:repository User --model --migration
 
 # Create Request classes
-php artisan make:scaffold User --request
+php artisan make:repository User --request
 ```
 
 ## API Routes
