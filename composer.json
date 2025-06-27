@@ -3,27 +3,30 @@
     "description": "A powerful Laravel package that provides a complete implementation of Repository and Service patterns for rapid API development.",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.0",
+    "homepage": "https://github.com/joesu/laravel-scaffold",
     "keywords": [
         "laravel",
         "api",
         "repository",
         "service",
-        "pattern"
+        "pattern",
+        "scaffold",
+        "generator",
+        "boilerplate",
+        "architecture"
     ],
     "authors": [
         {
-            "name": "JoeSu",
-            "email": "info@joesu.com"
+            "name": "JoeSu"
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.1|^8.2|^8.3|^8.4",
         "laravel/framework": "^10.0|^11.0|^12.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.0",
-        "orchestra/testbench": "^8.0|^9.0|^10.0"
+        "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0"
     },
     "autoload": {
         "psr-4": {
@@ -41,6 +44,18 @@
                 "JoeSu\\LaravelScaffold\\Providers\\LaravelScaffoldServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage"
+    },
+    "support": {
+        "issues": "https://github.com/joesu/laravel-scaffold/issues",
+        "source": "https://github.com/joesu/laravel-scaffold"
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
     },
     "minimum-stability": "stable",
     "prefer-stable": true
