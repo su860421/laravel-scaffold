@@ -114,10 +114,10 @@ PHP
         $appPath = base_path('app');
         $this->assertFileExists($appPath . '/Models/' . $this->testModel . '.php');
         $this->assertFileExists($appPath . '/Http/Controllers/' . $this->testName . 'Controller.php');
-        $this->assertFileExists($appPath . '/Http/Requests/Store' . $this->testName . 'Request.php');
-        $this->assertFileExists($appPath . '/Http/Requests/Update' . $this->testName . 'Request.php');
-        $this->assertFileExists($appPath . '/Http/Requests/Index' . $this->testName . 'Request.php');
-        $this->assertFileExists($appPath . '/Http/Requests/Show' . $this->testName . 'Request.php');
+        $this->assertFileExists($appPath . '/Http/Requests/' . $this->testName . '/Store' . $this->testName . 'Request.php');
+        $this->assertFileExists($appPath . '/Http/Requests/' . $this->testName . '/Update' . $this->testName . 'Request.php');
+        $this->assertFileExists($appPath . '/Http/Requests/' . $this->testName . '/Index' . $this->testName . 'Request.php');
+        $this->assertFileExists($appPath . '/Http/Requests/' . $this->testName . '/Show' . $this->testName . 'Request.php');
         $this->assertFileExists($appPath . '/Repositories/' . $this->testName . 'Repository.php');
         $this->assertFileExists($appPath . '/Services/' . $this->testName . 'Service.php');
         $this->assertFileExists($appPath . '/Contracts/' . $this->testName . 'RepositoryInterface.php');
@@ -152,10 +152,10 @@ PHP
         $result->assertExitCode(0);
 
         $appPath = base_path('app');
-        $this->assertFileExists($appPath . '/Http/Requests/Store' . $this->testName . 'Request.php');
-        $this->assertFileExists($appPath . '/Http/Requests/Update' . $this->testName . 'Request.php');
-        $this->assertFileExists($appPath . '/Http/Requests/Index' . $this->testName . 'Request.php');
-        $this->assertFileExists($appPath . '/Http/Requests/Show' . $this->testName . 'Request.php');
+        $this->assertFileExists($appPath . '/Http/Requests/' . $this->testName . '/Store' . $this->testName . 'Request.php');
+        $this->assertFileExists($appPath . '/Http/Requests/' . $this->testName . '/Update' . $this->testName . 'Request.php');
+        $this->assertFileExists($appPath . '/Http/Requests/' . $this->testName . '/Index' . $this->testName . 'Request.php');
+        $this->assertFileExists($appPath . '/Http/Requests/' . $this->testName . '/Show' . $this->testName . 'Request.php');
     }
 
     public function testCommandUpdatesApiRoutes()

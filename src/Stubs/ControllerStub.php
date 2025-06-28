@@ -20,10 +20,10 @@ declare(strict_types=1);
 namespace App\\Http\\Controllers;
 
 use App\\Contracts\\{$name}ServiceInterface;
-use App\\Http\\Requests\\Store{$name}Request;
-use App\\Http\\Requests\\Update{$name}Request;
-use App\\Http\\Requests\\Index{$name}Request;
-use App\\Http\\Requests\\Show{$name}Request;
+use App\\Http\\Requests\\{$name}\\Store{$name}Request;
+use App\\Http\\Requests\\{$name}\\Update{$name}Request;
+use App\\Http\\Requests\\{$name}\\Index{$name}Request;
+use App\\Http\\Requests\\{$name}\\Show{$name}Request;
 use Illuminate\\Http\\Request;
 
 class {$name}Controller extends Controller

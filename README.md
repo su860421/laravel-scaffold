@@ -61,10 +61,11 @@ app/
 │   ├── Controllers/
 │   │   └── UserController.php      # API Controller
 │   └── Requests/
-│       ├── StoreUserRequest.php    # Validation rules
-│       ├── UpdateUserRequest.php   # Update validation
-│       ├── IndexUserRequest.php    # Index validation
-│       └── ShowUserRequest.php     # Show validation
+│       └── User/                   # Request validation classes
+│           ├── StoreUserRequest.php    # Store validation
+│           ├── UpdateUserRequest.php   # Update validation
+│           ├── IndexUserRequest.php    # Index validation
+│           └── ShowUserRequest.php     # Show validation
 ├── Repositories/
 │   └── UserRepository.php          # Extends BaseRepository
 ├── Services/

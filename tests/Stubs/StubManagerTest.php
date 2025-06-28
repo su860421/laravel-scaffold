@@ -30,7 +30,7 @@ class StubManagerTest extends TestCase
             $requestName = "{$type}{$this->testName}Request";
 
             $this->assertStringContainsString("class {$requestName} extends FormRequest", $stub);
-            $this->assertStringContainsString('namespace App\\Http\\Requests;', $stub);
+            $this->assertStringContainsString('namespace App\\Http\\Requests\\' . $this->testName . ';', $stub);
             $this->assertStringContainsString('public function authorize(): bool', $stub);
             $this->assertStringContainsString('public function rules(): array', $stub);
         }

@@ -125,6 +125,13 @@ class MakeRepositoryCommand extends Command
 
     protected function createRequests($name, $force)
     {
+        // 創建對應的 Request 子目錄
+        $requestDirectory = app_path("Http/Requests/{$name}");
+        if (!File::exists($requestDirectory)) {
+            File::makeDirectory($requestDirectory, 0755, true);
+            $this->info("📁 Created directory: app/Http/Requests/{$name}");
+        }
+
         $requests = [
             'Store' => "Store{$name}Request",
             'Update' => "Update{$name}Request",
@@ -133,7 +140,7 @@ class MakeRepositoryCommand extends Command
         ];
 
         foreach ($requests as $type => $requestName) {
-            $requestPath = app_path("Http/Requests/{$requestName}.php");
+            $requestPath = app_path("Http/Requests/{$name}/{$requestName}.php");
 
             if (File::exists($requestPath) && !$force) {
                 if (!$this->confirm("Request {$requestName} already exists. Overwrite?")) {
@@ -144,7 +151,7 @@ class MakeRepositoryCommand extends Command
             $stub = StubManager::generateRequest($name, $type);
             File::put($requestPath, $stub);
 
-            $this->info("✅ Created: app/Http/Requests/{$requestName}.php");
+            $this->info("✅ Created: app/Http/Requests/{$name}/{$requestName}.php");
         }
     }
 
