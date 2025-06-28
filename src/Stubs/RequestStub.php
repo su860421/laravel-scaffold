@@ -52,7 +52,6 @@ class {$requestName} extends FormRequest
             'filters' => ['array'],
         ];",
             'Show' => "        return [
-            'id' => ['required', 'integer', 'min:1'],
             'columns' => ['array'],
             'with' => ['array'],
         ];",

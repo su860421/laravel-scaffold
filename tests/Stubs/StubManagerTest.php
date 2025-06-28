@@ -52,7 +52,6 @@ class StubManagerTest extends TestCase
     {
         $stub = StubManager::generateRequest($this->testName, 'Show');
 
-        $this->assertStringContainsString("'id' => ['required', 'integer', 'min:1']", $stub);
         $this->assertStringContainsString("'columns' => ['array']", $stub);
         $this->assertStringContainsString("'with' => ['array']", $stub);
     }
