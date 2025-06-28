@@ -13,17 +13,16 @@ use JoeSu\LaravelScaffold\Stubs\StubManager;
 class MakeRepositoryCommand extends Command
 {
     protected $signature = 'make:repository {name} 
-                            {--model= : The model name}
                             {--migration : Create a migration file}
                             {--requests : Create request classes}
                             {--force : Overwrite existing files}';
 
-    protected $description = 'Create a new repository class and interface with optional model, migration, and requests';
+    protected $description = 'Create a new repository class and interface with optional migration and requests';
 
     public function handle()
     {
         $name = $this->argument('name');
-        $model = $this->option('model') ?: $name;
+        $model = $name; // Model name is always the same as repository name
         $createMigration = $this->option('migration');
         $createRequests = $this->option('requests');
         $force = $this->option('force');
@@ -34,7 +33,7 @@ class MakeRepositoryCommand extends Command
         // Create directories
         $this->createDirectories();
 
-        // Create Model
+        // Create Model (always needed for Repository and Service)
         $this->createModel($name, $model, $force);
 
         // Create Migration
@@ -314,8 +313,8 @@ class MakeRepositoryCommand extends Command
         }
 
         // Prepare new binding content
-        $newBinding = "\n        \$this->app->bind(\\App\\Contracts\\{$name}ServiceInterface::class, \\App\\Services\\{$name}Service::class);\n";
-        $newBinding .= "        \$this->app->bind(\\App\\Contracts\\{$name}RepositoryInterface::class, \\App\\Repositories\\{$name}Repository::class);\n";
+        $newBinding = "\n        \$this->app->bind({$name}ServiceInterface::class, {$name}Service::class);\n";
+        $newBinding .= "        \$this->app->bind({$name}RepositoryInterface::class, {$name}Repository::class);\n";
 
         // Check if register method exists
         if (strpos($content, 'public function register()') !== false) {

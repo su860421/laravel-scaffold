@@ -1,24 +1,24 @@
 # 🚀 Laravel Scaffold - Enterprise-Grade CRUD Generator
 
-> **From 0 to Complete API in 30 Seconds** - Auto-generate Repository, Service, Controller, Tests, and Smart Cleanup
+> **From 0 to Complete API in 30 Seconds** - Auto-generate Repository, Service, Controller with Laravel best practices
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-blue.svg)](https://php.net)
 [![Laravel Version](https://img.shields.io/badge/Laravel-10.x%20%7C%2011.x%20%7C%2012.x-green.svg)](https://laravel.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)](https://github.com/joesu/laravel-scaffold)
 
-**Solve the Problem**: Eliminate repetitive CRUD code, improve test coverage, and manage generated files intelligently in Laravel development.
+**Solve the Problem**: Eliminate repetitive CRUD code and implement enterprise-grade architecture patterns in Laravel development.
 
 ## 🎯 Why Choose Laravel Scaffold?
 
 | Feature | Laravel Scaffold | Other Packages |
 |---------|------------------|----------------|
-| **Auto-Generated Tests** | ✅ Complete test coverage | ❌ Manual test writing |
-| **Smart Cleanup** | ✅ One-click cleanup | ❌ Manual file deletion |
+| **Repository Pattern** | ✅ Complete implementation | ❌ Basic only |
+| **Service Layer** | ✅ Business logic separation | ❌ Missing |
+| **Auto Setup** | ✅ Routes & bindings | ❌ Manual setup |
 | **Multilingual Support** | ✅ Built-in EN/CN | ❌ English only |
-| **Batch Operations** | ✅ Full support | ❌ Partial support |
-| **Relationship Filtering** | ✅ Advanced queries | ❌ Basic only |
-| **Soft Delete Support** | ✅ Complete implementation | ❌ Limited support |
+| **Advanced Features** | ✅ Filtering, sorting, batch ops | ❌ Limited |
+| **Clean Architecture** | ✅ Interface contracts | ❌ Direct coupling |
 
 ## 🚀 Quick Start
 
@@ -29,11 +29,10 @@ composer require joesu/laravel-scaffold
 # Generate complete CRUD architecture
 php artisan make:repository User
 
-# Run tests (auto-generated!)
-php artisan test --filter=UserTest
+# That's it! Your API is ready to use
 ```
 
-**30 seconds later, you have a complete User API with full test coverage!**
+**30 seconds later, you have a complete User API with enterprise architecture!**
 
 ## 🎯 Perfect For
 
@@ -41,15 +40,11 @@ php artisan test --filter=UserTest
 - ✅ **SaaS Backend Systems** - Scalable service layer
 - ✅ **Rapid Prototyping** - Quick MVP development
 - ✅ **Team Collaboration** - Consistent code patterns
-- ✅ **Code Quality** - Built-in testing and error handling
+- ✅ **Code Quality** - Clean architecture patterns
 
 ## 🏗️ Architecture
 
 Laravel Scaffold provides a complete layered architecture with enterprise-grade patterns:
-
-### Base Interfaces
-- **BaseRepositoryInterface**: Complete repository contract
-- **BaseServiceInterface**: Service layer contract
 
 ### Base Classes
 - **BaseRepository**: Full CRUD implementation with advanced features
@@ -67,58 +62,24 @@ app/
 │   │   └── UserController.php      # API Controller
 │   └── Requests/
 │       ├── StoreUserRequest.php    # Validation rules
-│       └── UpdateUserRequest.php   # Update validation
+│       ├── UpdateUserRequest.php   # Update validation
+│       ├── IndexUserRequest.php    # Index validation
+│       └── ShowUserRequest.php     # Show validation
 ├── Repositories/
 │   └── UserRepository.php          # Extends BaseRepository
 ├── Services/
 │   └── UserService.php             # Extends BaseService
-├── Tests/
-│   ├── Feature/
-│   │   └── UserTest.php            # Auto-generated tests
-│   └── Unit/
-│       ├── UserRepositoryTest.php  # Repository tests
-│       └── UserServiceTest.php     # Service tests
 └── Contracts/
     ├── UserRepositoryInterface.php # Repository contract
     └── UserServiceInterface.php    # Service contract
 ```
 
+**Automatic Setup:**
+- ✅ **Service Provider Bindings**: Automatically added to `AppServiceProvider`
+- ✅ **API Routes**: Automatically added to `routes/api.php`
+- ✅ **Dependency Injection**: Ready to use with Laravel's DI container
+
 ## ✨ Key Features
-
-### 🧪 Auto-Generated Tests (Unique Feature!)
-```bash
-# Automatically generates comprehensive tests
-php artisan make:repository User
-
-# Run the generated tests
-php artisan test --filter=UserTest
-```
-
-**Generated test coverage includes:**
-- ✅ CRUD operations testing
-- ✅ Validation rules testing
-- ✅ Error handling testing
-- ✅ Batch operations testing
-- ✅ Soft delete testing
-
-### 🧹 Smart Cleanup System
-```bash
-# Clean up generated files when needed
-php artisan scaffold:cleanup User
-
-# Clean with confirmation
-php artisan scaffold:cleanup User --confirm
-
-# Clean with backup
-php artisan scaffold:cleanup User --backup
-```
-
-**Safely removes:**
-- Generated controllers, repositories, services
-- Test files
-- Request validation classes
-- Interface contracts
-- API routes (optional)
 
 ### 🔄 Advanced Repository Features
 - **Complete CRUD operations** with error handling
@@ -137,63 +98,6 @@ php artisan scaffold:cleanup User --backup
 - **Soft delete operations**
 - **Error handling** with custom exceptions
 
-## 📡 API Usage Examples
-
-### Basic Operations
-```bash
-# Get all users with pagination
-GET /api/users?per_page=10&page=1
-
-# Sort by creation date
-GET /api/users?order_by=created_at&order_direction=desc
-
-# Load relationships
-GET /api/users?with[]=posts&with[]=profile
-
-# Relationship counts
-GET /api/users?with[]=posts.count&with[]=comments.count
-```
-
-### Advanced Filtering
-```bash
-# Simple filtering
-GET /api/users?filters[0][]=email&filters[0][]=user@example.com
-
-# Complex filtering
-GET /api/users?filters[0][]=created_at&filters[0][]=>=&filters[0][]=2024-01-01
-
-# JSON format filtering
-GET /api/users?filters[0]={"field":"status","operator":"=","value":"active"}
-
-# Filter by related table columns
-GET /api/users?filters[0][]=posts.title&filters[0][]=Laravel&filters[0][]=LIKE
-```
-
-### Batch Operations
-```bash
-# Batch create
-POST /api/users/batch-store
-{
-    "users": [
-        {"name": "John", "email": "john@example.com"},
-        {"name": "Jane", "email": "jane@example.com"}
-    ]
-}
-
-# Batch update
-PUT /api/users/batch-update
-{
-    "ids": [1, 2, 3],
-    "attributes": {"status": "active"}
-}
-
-# Batch delete
-DELETE /api/users/batch-destroy
-{
-    "ids": [1, 2, 3]
-}
-```
-
 ## 🛠️ Installation & Setup
 
 ### 1. Install Package
@@ -208,14 +112,33 @@ php artisan vendor:publish --provider="JoeSu\LaravelScaffold\Providers\LaravelSc
 
 ### 3. Generate Your First CRUD
 ```bash
-# Complete CRUD generation
+# Complete CRUD generation with automatic setup
 php artisan make:repository User
 
-# Selective generation
-php artisan make:repository User --repository --service
-php artisan make:repository User --model --migration
-php artisan make:repository User --request
+# Include migration file
+php artisan make:repository User --migration
+
+# Include request validation classes
+php artisan make:repository User --requests
+
+# Include both migration and requests
+php artisan make:repository User --migration --requests
+
+# Force overwrite existing files
+php artisan make:repository User --force
 ```
+
+**What happens automatically:**
+- ✅ Model is always created (needed for Repository and Service)
+- ✅ Service provider bindings are added to `AppServiceProvider`
+- ✅ API routes are added to `routes/api.php`
+- ✅ All files are properly namespaced and ready to use
+- ✅ No manual configuration required
+
+**Available Options:**
+- `--migration`: Create migration file
+- `--requests`: Create request validation classes
+- `--force`: Overwrite existing files
 
 ## 🌍 Multilingual Support
 

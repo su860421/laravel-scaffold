@@ -106,7 +106,6 @@ PHP
     {
         $result = $this->artisan('make:repository', [
             'name' => $this->testName,
-            '--model' => $this->testModel,
             '--force' => true,
         ]);
 
@@ -129,7 +128,6 @@ PHP
     {
         $result = $this->artisan('make:repository', [
             'name' => $this->testName,
-            '--model' => $this->testModel,
             '--migration' => true,
             '--force' => true,
         ]);
@@ -147,7 +145,6 @@ PHP
     {
         $result = $this->artisan('make:repository', [
             'name' => $this->testName,
-            '--model' => $this->testModel,
             '--requests' => true,
             '--force' => true,
         ]);
@@ -165,7 +162,6 @@ PHP
     {
         $result = $this->artisan('make:repository', [
             'name' => $this->testName,
-            '--model' => $this->testModel,
             '--force' => true,
         ]);
 
@@ -180,7 +176,6 @@ PHP
     {
         $result = $this->artisan('make:repository', [
             'name' => $this->testName,
-            '--model' => $this->testModel,
             '--force' => true,
         ]);
 
