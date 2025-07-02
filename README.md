@@ -5,7 +5,7 @@
 [![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-blue.svg)](https://php.net)
 [![Laravel Version](https://img.shields.io/badge/Laravel-10.x%20%7C%2011.x%20%7C%2012.x-green.svg)](https://laravel.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)](https://github.com/joesu/laravel-scaffold)
+[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)](https://github.com/su860421/laravel-scaffold)
 
 **Solve the Problem**: Eliminate repetitive CRUD code and implement enterprise-grade architecture patterns in Laravel development.
 
@@ -16,7 +16,7 @@
 | **Repository Pattern** | ✅ Complete implementation | ❌ Basic only |
 | **Service Layer** | ✅ Business logic separation | ❌ Missing |
 | **Auto Setup** | ✅ Routes & bindings | ❌ Manual setup |
-| **Multilingual Support** | ✅ Built-in EN/CN | ❌ English only |
+| **Multilingual Support** | ✅ Built-in EN/CN | ❌ English only |【
 | **Advanced Features** | ✅ Filtering, sorting, batch ops | ❌ Limited |
 | **Clean Architecture** | ✅ Interface contracts | ❌ Direct coupling |
 
@@ -210,9 +210,9 @@ This package is open-sourced software licensed under the [MIT License](LICENSE).
 
 ## 🆘 Support
 
-- 📧 **Issues**: [GitHub Issues](https://github.com/joesu/laravel-scaffold/issues)
-- 📚 **Documentation**: [GitHub Wiki](https://github.com/joesu/laravel-scaffold/wiki)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/joesu/laravel-scaffold/discussions)
+- 📧 **Issues**: [GitHub Issues](https://github.com/su860421/laravel-scaffold/issues)
+- 📚 **Documentation**: [GitHub Wiki](https://github.com/su860421/laravel-scaffold/wiki)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/su860421/laravel-scaffold/discussions)
 
 ## ⭐ Show Your Support
 
