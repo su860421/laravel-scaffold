@@ -34,4 +34,48 @@ return [
     'update_or_create_failed' => '更新或建立模型失敗: :error',
     'exists_check_failed' => '檢查存在性失敗: :error',
     'count_failed' => '計算記錄數量失敗: :error',
+
+    // Validation messages
+    'pagination' => [
+        'per_page' => [
+            'min' => '每頁顯示數量至少為 1',
+            'max' => '每頁顯示數量不能超過 100',
+        ],
+        'page' => [
+            'min' => '頁碼至少為 1',
+        ],
+    ],
+    'sorting' => [
+        'order_direction' => [
+            'in' => '排序方向必須是 asc 或 desc',
+        ],
+    ],
+    'selection' => [
+        'columns' => [
+            'array' => '欄位必須是陣列格式',
+        ],
+        'columns_each' => [
+            'in' => '指定的欄位無效',
+        ],
+        'with' => [
+            'array' => '關聯必須是陣列格式',
+        ],
+    ],
+    'filtering' => [
+        'filters' => [
+            'array' => '篩選條件必須是陣列格式',
+        ],
+        'filters_field' => [
+            'in' => '指定的篩選欄位無效',
+        ],
+        'filters_operator' => [
+            'in' => '無效的篩選操作符',
+        ],
+        'filters_value' => [
+            'required' => '篩選值是必填的',
+        ],
+        'search' => [
+            'string' => '搜尋關鍵字必須是字串',
+        ],
+    ],
 ];

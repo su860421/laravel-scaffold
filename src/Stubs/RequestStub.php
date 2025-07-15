@@ -9,7 +9,7 @@ class RequestStub
     public static function generate(string $name, string $type): string
     {
         $requestName = "{$type}{$name}Request";
-        $rules = self::getRulesByType($type);
+        $rulesExample = self::getRulesExampleByType($type);
 
         return "<?php
 
@@ -17,44 +17,82 @@ declare(strict_types=1);
 
 namespace App\\Http\\Requests\\{$name};
 
-use Illuminate\\Foundation\\Http\\FormRequest;
+use JoeSu\\LaravelScaffold\\BaseRequest;
+use App\\Models\\{$name};
 
-class {$requestName} extends FormRequest
+class {$requestName} extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      */
     public function rules(): array
     {
-{$rules}
+{$rulesExample}
+    }
+
+    /**
+     * Get the error messages for the validation rules.
+     */
+    public function messages(): array
+    {
+        return \$this->getAllMessages();
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     */
+    public function attributes(): array
+    {
+        return \$this->getAllAttributes();
+    }
+
+    /**
+     * Get available fields for validation.
+     */
+    protected function getAvailableFields(): array
+    {
+        return \$this->getModelFields({$name}::class);
+    }
+
+    /**
+     * Get the model instance.
+     */
+    protected function model(): {$name}
+    {
+        return new {$name}();
     }
 }
 ";
     }
 
-    private static function getRulesByType(string $type): string
+    private static function getRulesExampleByType(string $type): string
     {
         return match ($type) {
-            'Index' => "        return [
-            'per_page' => ['integer', 'min:1', 'max:100'],
-            'order_by' => ['string'],
-            'order_direction' => ['in:asc,desc'],
-            'with' => ['array'],
-            'columns' => ['array'],
-            'filters' => ['array'],
-        ];",
-            'Show' => "        return [
-            'columns' => ['array'],
-            'with' => ['array'],
-        ];",
+            'Index' => "        // 使用預設的 index 規則（包含分頁、排序、篩選等）
+        return \$this->getDefaultIndexRules();
+
+        // 或者自訂要使用的規則：
+        // return \$this->onlyRules(['per_page', 'order_by', 'order_direction', 'columns']);
+        
+        // 或者使用分組規則：
+        // return array_merge(
+        //     \$this->getPaginationRules(),
+        //     \$this->getSortingRules(),
+        //     \$this->getSelectionRules()
+        // );
+        
+        // 或者排除某些規則：
+        // return \$this->exceptRules(['filters', 'search']);",
+
+            'Show' => "        // 使用預設的 show 規則（欄位選擇和關聯載入）
+        return \$this->getDefaultShowRules();
+
+        // 或者自訂要使用的規則：
+        // return \$this->onlyRules(['columns', 'with']);
+        
+        // 或者只要欄位選擇：
+        // return \$this->getSelectionRules();",
+
             default => "        return [];",
         };
     }
