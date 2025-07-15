@@ -34,4 +34,48 @@ return [
     'update_or_create_failed' => 'Failed to update or create model: :error',
     'exists_check_failed' => 'Failed to check existence: :error',
     'count_failed' => 'Failed to count records: :error',
+
+    // Validation messages
+    'pagination' => [
+        'per_page' => [
+            'min' => 'Per page must be at least 1',
+            'max' => 'Per page cannot exceed 100',
+        ],
+        'page' => [
+            'min' => 'Page number must be at least 1',
+        ],
+    ],
+    'sorting' => [
+        'order_direction' => [
+            'in' => 'Order direction must be asc or desc',
+        ],
+    ],
+    'selection' => [
+        'columns' => [
+            'array' => 'Columns must be an array',
+        ],
+        'columns_each' => [
+            'in' => 'Invalid column specified',
+        ],
+        'with' => [
+            'array' => 'Relationships must be an array',
+        ],
+    ],
+    'filtering' => [
+        'filters' => [
+            'array' => 'Filters must be an array',
+        ],
+        'filters_field' => [
+            'in' => 'Invalid filter field specified',
+        ],
+        'filters_operator' => [
+            'in' => 'Invalid filter operator',
+        ],
+        'filters_value' => [
+            'required' => 'Filter value is required',
+        ],
+        'search' => [
+            'string' => 'Search term must be a string',
+        ],
+    ],
 ];
