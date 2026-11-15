@@ -2,10 +2,10 @@
 
 > **From 0 to Complete API in 30 Seconds** - Auto-generate Repository, Service, Controller with Laravel best practices
 
-[![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-blue.svg)](https://php.net)
-[![Laravel Version](https://img.shields.io/badge/Laravel-10.x%20%7C%2011.x%20%7C%2012.x-green.svg)](https://laravel.com)
+[![PHP Version](https://img.shields.io/badge/PHP-8.3%2B-blue.svg)](https://php.net)
+[![Laravel Version](https://img.shields.io/badge/Laravel-12.x%20%7C%2013.x-green.svg)](https://laravel.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)](https://github.com/su860421/laravel-scaffold)
+[![Tests](https://github.com/su860421/laravel-scaffold/actions/workflows/tests.yml/badge.svg)](https://github.com/su860421/laravel-scaffold/actions/workflows/tests.yml)
 
 **Solve the Problem**: Eliminate repetitive CRUD code and implement enterprise-grade architecture patterns in Laravel development.
 
@@ -187,16 +187,16 @@ composer test-coverage
 
 ## 📋 Requirements
 
-- **PHP**: ^8.1|^8.2|^8.3|^8.4
-- **Laravel**: ^10.0|^11.0|^12.0
+- **PHP**: ^8.3 (8.3, 8.4, 8.5)
+- **Laravel**: ^12.0|^13.0
 
 ## 🔄 Version Compatibility
 
 | Laravel Version | PHP Version | Status |
 |----------------|-------------|---------|
-| 10.x | ^8.1 | ✅ Supported |
-| 11.x | ^8.2 | ✅ Supported |
-| 12.x | ^8.2 | ✅ Supported |
+| 13.x | 8.3 – 8.5 | ✅ Supported |
+| 12.x | 8.3 – 8.5 | ✅ Supported |
+| 10.x / 11.x | 8.1 – 8.4 | Use `joesu/laravel-scaffold:^1.1` |
 
 For detailed version compatibility, see [VERSION_COMPATIBILITY.md](VERSION_COMPATIBILITY.md).
 

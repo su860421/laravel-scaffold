@@ -263,7 +263,7 @@ class MakeRepositoryCommand extends Command
 
         // If file doesn't exist, create basic structure
         if (!File::exists($routesPath)) {
-            $basicContent = "<?php\n\nuse Illuminate\\Http\\Request;\nuse Illuminate\\Support\\Facades\\Route;\nuse App\\Http\\Controllers\\{$name}Controller;\n\n/*\n|--------------------------------------------------------------------------\n| API Routes\n|--------------------------------------------------------------------------\n|\n| Here is where you can register API routes for your application. These\n| routes are loaded by the RouteServiceProvider and all of them will\n| be assigned to the \"api\" middleware group. Make something great!\n|\n*/\n\n";
+            $basicContent = "<?php\n\nuse Illuminate\\Http\\Request;\nuse Illuminate\\Support\\Facades\\Route;\nuse App\\Http\\Controllers\\{$name}Controller;\n\n/*\n|--------------------------------------------------------------------------\n| API Routes\n|--------------------------------------------------------------------------\n|\n| Here is where you can register API routes for your application. These\n| routes are assigned to the \"api\" middleware group.\n|\n*/\n\n";
             File::put($routesPath, $basicContent . $newRoute);
         } else {
             // Check if use statement needs to be added
@@ -299,6 +299,46 @@ class MakeRepositoryCommand extends Command
         }
 
         $this->info("✅ Added API routes for {$routeName} to routes/api.php");
+
+        $this->registerApiRoutes();
+    }
+
+    /**
+     * Laravel 11+ skeletons do not load routes/api.php unless it is
+     * registered in bootstrap/app.php. Mirrors what `install:api` does.
+     */
+    protected function registerApiRoutes(): void
+    {
+        $bootstrapPath = base_path('bootstrap/app.php');
+
+        if (!File::exists($bootstrapPath)) {
+            return;
+        }
+
+        $content = File::get($bootstrapPath);
+
+        // Legacy structure (RouteServiceProvider) or already registered
+        if (!str_contains($content, 'withRouting(') || preg_match('/^\s*api:/m', $content) === 1) {
+            return;
+        }
+
+        $webLine = "web: __DIR__.'/../routes/web.php',";
+
+        if (str_contains($content, '// api: ')) {
+            $content = str_replace('// api: ', 'api: ', $content);
+        } elseif (str_contains($content, $webLine)) {
+            $content = str_replace(
+                $webLine,
+                $webLine . PHP_EOL . "        api: __DIR__.'/../routes/api.php',",
+                $content
+            );
+        } else {
+            $this->warn("⚠️  routes/api.php is not registered. Add `api: __DIR__.'/../routes/api.php',` to withRouting() in bootstrap/app.php.");
+            return;
+        }
+
+        File::put($bootstrapPath, $content);
+        $this->info('✅ Registered routes/api.php in bootstrap/app.php');
     }
 
     protected function updateAppServiceProvider($name, $force)

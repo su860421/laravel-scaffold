@@ -106,10 +106,11 @@ PHP
     {
         $result = $this->artisan('make:repository', [
             'name' => $this->testName,
+            '--requests' => true,
             '--force' => true,
         ]);
 
-        $result->assertExitCode(0);
+        $result->assertExitCode(0)->run();
 
         $appPath = base_path('app');
         $this->assertFileExists($appPath . '/Models/' . $this->testModel . '.php');
@@ -132,7 +133,7 @@ PHP
             '--force' => true,
         ]);
 
-        $result->assertExitCode(0);
+        $result->assertExitCode(0)->run();
 
         $migrationFiles = glob(base_path('database/migrations/*_create_test_users_table.php'));
         if (empty($migrationFiles)) {
@@ -149,7 +150,7 @@ PHP
             '--force' => true,
         ]);
 
-        $result->assertExitCode(0);
+        $result->assertExitCode(0)->run();
 
         $appPath = base_path('app');
         $this->assertFileExists($appPath . '/Http/Requests/' . $this->testName . '/Store' . $this->testName . 'Request.php');
@@ -165,7 +166,7 @@ PHP
             '--force' => true,
         ]);
 
-        $result->assertExitCode(0);
+        $result->assertExitCode(0)->run();
 
         $apiRoutesContent = file_get_contents(base_path('routes/api.php'));
         $this->assertStringContainsString("Route::apiResource('test_users'", $apiRoutesContent);
@@ -179,7 +180,7 @@ PHP
             '--force' => true,
         ]);
 
-        $result->assertExitCode(0);
+        $result->assertExitCode(0)->run();
 
         $serviceProviderContent = file_get_contents(base_path('app/Providers/AppServiceProvider.php'));
         $this->assertStringContainsString($this->testName . 'ServiceInterface', $serviceProviderContent);

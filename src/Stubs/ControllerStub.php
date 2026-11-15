@@ -40,12 +40,12 @@ class {$name}Controller extends Controller
      */
     public function index(Index{$name}Request \$request)
     {
-        \$perPage = \$request->get('per_page', 0);
-        \$orderBy = \$request->get('order_by');
-        \$orderDirection = \$request->get('order_direction', 'asc');
-        \$relationships = \$request->get('with', []);
-        \$columns = \$request->get('columns', ['*']);
-        \$filters = \$request->get('filters', []);
+        \$perPage = \$request->integer('per_page');
+        \$orderBy = \$request->input('order_by');
+        \$orderDirection = \$request->input('order_direction', 'asc');
+        \$relationships = \$request->input('with', []);
+        \$columns = \$request->input('columns', ['*']);
+        \$filters = \$request->input('filters', []);
 
         \${$pluralName} = \$this->{$lowerName}Service->index(
             \$perPage,
